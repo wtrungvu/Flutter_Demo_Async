@@ -11,8 +11,46 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Center(
-          child: Text("Hello World"),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Flutter Demo Async"),
+          ),
+          body: Center(
+            child: FutureWidget(),
+          ),
         ));
   }
+}
+
+class FutureWidget extends StatefulWidget {
+  @override
+  _FutureWidgetState createState() => _FutureWidgetState();
+}
+
+class _FutureWidgetState extends State<FutureWidget> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          RaisedButton(
+            color: Colors.redAccent,
+            onPressed: () {
+              asyncMethod();
+              print("123");
+              print("456");
+            },
+            child: Text("Push me"),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+Future<void> asyncMethod() {
+  return Future.delayed(Duration(seconds: 3), () => print("asyncMethod is called!!!"));
 }
