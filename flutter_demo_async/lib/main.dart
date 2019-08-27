@@ -39,16 +39,17 @@ class _FutureWidgetState extends State<FutureWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FutureBuilder<int>(
-            future: delayNumberWithError(),
+            future: delayNumber(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) {
+              if (snapshot.hasData) {
                 return Text(
-                  snapshot.error.toString(),
+                  "Result is: " + snapshot.data.toString(),
                   style: TextStyle(fontSize: 50.0),
                 );
               }
+
               return Text(
-                snapshot.data.toString(),
+                "Loading...",
                 style: TextStyle(fontSize: 50.0),
               );
             },
