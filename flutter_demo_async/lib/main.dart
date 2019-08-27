@@ -38,6 +38,21 @@ class _FutureWidgetState extends State<FutureWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          FutureBuilder<int>(
+            future: delayNumberWithError(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text(
+                  snapshot.error.toString(),
+                  style: TextStyle(fontSize: 50.0),
+                );
+              }
+              return Text(
+                snapshot.data.toString(),
+                style: TextStyle(fontSize: 50.0),
+              );
+            },
+          ),
           RaisedButton(
             color: Colors.redAccent,
             onPressed: () async {
@@ -65,7 +80,7 @@ Future<void> asyncMethod() {
 
 // Integer Number
 Future<int> delayNumber() {
-  return Future.delayed(Duration(seconds: 3), () => 100);
+  return Future.delayed(Duration(seconds: 5), () => 100);
 }
 
 Future<int> getAge() {
