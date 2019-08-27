@@ -40,10 +40,15 @@ class _FutureWidgetState extends State<FutureWidget> {
         children: <Widget>[
           RaisedButton(
             color: Colors.redAccent,
-            onPressed: () {
-              getAge().then((value) {
-                print(value); // print result is: 69
-              });
+            onPressed: () async {
+              try {
+                var number = await delayNumberWithError();
+                print(number);
+              } catch (e) {
+                print(e
+                    .toString()); // print result is: Exception: Bao dong do - App co loi
+              }
+              print("123");
             },
             child: Text("Push me"),
           )
@@ -69,4 +74,9 @@ Future<int> getAge() {
     completer.complete(69);
   });
   return completer.future;
+}
+
+Future<int> delayNumberWithError() {
+  return Future.delayed(
+      Duration(seconds: 2), () => throw Exception("Bao dong do - App co loi"));
 }
