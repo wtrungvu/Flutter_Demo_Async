@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -38,16 +40,10 @@ class _FutureWidgetState extends State<FutureWidget> {
         children: <Widget>[
           RaisedButton(
             color: Colors.redAccent,
-            onPressed: () async {
-              /*
-              var number = delayNumber();
-              print(number); // print result is: Instance of 'Future<int>'
-              */
-
-              // * Add await & async
-              var number = await delayNumber();
-              print(number); // print result is: 100
-
+            onPressed: () {
+              getAge().then((value) {
+                print(value); // print result is: 69
+              });
             },
             child: Text("Push me"),
           )
@@ -65,4 +61,12 @@ Future<void> asyncMethod() {
 // Integer Number
 Future<int> delayNumber() {
   return Future.delayed(Duration(seconds: 3), () => 100);
+}
+
+Future<int> getAge() {
+  final completer = Completer<int>();
+  Future.delayed(Duration(seconds: 3), () {
+    completer.complete(69);
+  });
+  return completer.future;
 }
