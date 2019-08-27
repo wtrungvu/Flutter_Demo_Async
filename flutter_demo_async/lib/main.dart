@@ -38,10 +38,16 @@ class _FutureWidgetState extends State<FutureWidget> {
         children: <Widget>[
           RaisedButton(
             color: Colors.redAccent,
-            onPressed: () {
-              asyncMethod();
-              print("123");
-              print("456");
+            onPressed: () async {
+              /*
+              var number = delayNumber();
+              print(number); // print result is: Instance of 'Future<int>'
+              */
+
+              // * Add await & async
+              var number = await delayNumber();
+              print(number); // print result is: 100
+
             },
             child: Text("Push me"),
           )
@@ -52,5 +58,11 @@ class _FutureWidgetState extends State<FutureWidget> {
 }
 
 Future<void> asyncMethod() {
-  return Future.delayed(Duration(seconds: 3), () => print("asyncMethod is called!!!"));
+  return Future.delayed(
+      Duration(seconds: 3), () => print("asyncMethod is called!!!"));
+}
+
+// Integer Number
+Future<int> delayNumber() {
+  return Future.delayed(Duration(seconds: 3), () => 100);
 }
